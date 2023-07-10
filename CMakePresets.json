@@ -1,0 +1,10 @@
+﻿{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "VS2022-Win64",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/Build/Output/${presetName}"
+    }
+  ]
+}
