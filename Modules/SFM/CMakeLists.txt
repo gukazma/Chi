@@ -1,50 +1,53 @@
-if (NOT PRECOMPILED_HEADERS_ENABLED)
-    return()
-endif()
+set(TARGET_NAME "ChiSFM")
 
-set(TARGET_NAME ${PROJECT_NAME}CommonPrecompiledHeaders)
-if (WIN32)
-    list(APPEND PRECOMPILED_HEADERS
-        <windows.h>
-        <wrl.h>
-    )
-endif()
+file(GLOB_RECURSE HEADER_FILES "*.h")
+file(GLOB_RECURSE HPP_FILES "*.hpp")
+file(GLOB_RECURSE CPP_FILES "*.cpp")
 
-list(APPEND PRECOMPILED_HEADERS
-    # containers
-    <iterator>
-    <set>
-    <unordered_set>
-    <map>
-    <unordered_map>
-    <list>
-    <vector>
-)
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${HEADER_FILES} ${HPP_FILES} ${CPP_FILES})
 
-add_library(${TARGET_NAME} STATIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/Sources/Chi/PrecompiledHeaders.cpp
-)
-add_library(${PROJECT_NAME}::CommonPrecompiledHeaders ALIAS ${TARGET_NAME})
+find_package(Eigen3 REQUIRED HINTS D:/ThirdParty/Eigen3)
+find_package(Ceres REQUIRED HINTS D:/ThirdParty/Ceres)
+find_package(cereal REQUIRED CONFIG HINTS D:/ThirdParty/cereal)
+find_package(OpenMVG REQUIRED CONFIG HINTS D:/ThirdParty/openMVG)
 
-target_link_libraries(${TARGET_NAME}
-    PUBLIC
-        ${PRECOMPILED_LIBS}
-)
-target_include_directories(${TARGET_NAME} PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Inlcude]
-)
+add_library(${TARGET_NAME} ${HEADER_FILES} ${CPP_FILES} ${HEADER_FILES} ${HPP_FILES})
+add_library(Chi::SFM ALIAS ${TARGET_NAME})
+
+set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 17)
+
 # being a cross-platform target, we enforce standards conformance on MSVC
 target_compile_options(${TARGET_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/permissive->")
 target_compile_options(${TARGET_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/WX->")
-target_precompile_headers(${TARGET_NAME}
+
+# Link dependencies    
+target_link_libraries(${TARGET_NAME} 
     PUBLIC
-        ${PRECOMPILED_HEADERS}
+    OpenMVG::openMVG_system
+    OpenMVG::openMVG_image
+    OpenMVG::openMVG_features
+    OpenMVG::openMVG_sfm
+    OpenMVG::openMVG_exif
+          )
+
+target_include_directories(
+  ${TARGET_NAME} 
+  PUBLIC 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Include>
 )
 
 set_target_properties(${TARGET_NAME}
     PROPERTIES
-        FOLDER Modules/Common
+        FOLDER Modules/SFM
 )
+
+if(PRECOMPILED_HEADERS_ENABLED)
+    target_precompile_headers(${TARGET_NAME} REUSE_FROM ${PROJECT_NAME}CommonPrecompiledHeaders)
+    target_link_libraries(${TARGET_NAME} 
+        PUBLIC
+            ${PROJECT_NAME}CommonPrecompiledHeaders
+          )
+endif()
 
 packageProject(
   # the name of the target to export

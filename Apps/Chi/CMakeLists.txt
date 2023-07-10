@@ -1,4 +1,4 @@
-set(TARGET_NAME DemoApp)
+set(TARGET_NAME Chi)
 
 # for qt
 # set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_CURRENT_SOURCE_DIR})
@@ -10,12 +10,15 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${CPP_HEAD_FILES} ${CPP_SO
 
 add_executable(${TARGET_NAME} ${CPP_HEAD_FILES} ${CPP_SOUCE_FILES})
 
-set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 17 OUTPUT_NAME ${PROJECT_NAME})
+set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 17 OUTPUT_NAME Chi)
 set_target_properties(${TARGET_NAME} PROPERTIES FOLDER Apps)
 
 target_compile_options(${TARGET_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/WX->")
 
-target_link_libraries(${TARGET_NAME} PRIVATE ${PROJECT_NAME}::Primitives)
+target_link_libraries(${TARGET_NAME} PRIVATE 
+Chi::Primitives
+Chi::SFM
+)
 
 target_include_directories(
   ${TARGET_NAME} 
