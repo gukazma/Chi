@@ -46,7 +46,7 @@ if(CLANG_FORMAT_EXE)
   file(GLOB_RECURSE FFILES ${CMAKE_SOURCE_DIR}/Modules/*.[hc] ${CMAKE_SOURCE_DIR}/Modules/*.[hc]pp ${CMAKE_SOURCE_DIR}/Apps/*.[hc] ${CMAKE_SOURCE_DIR}/Apps/*.[hc]pp)
   clang_format(${PROJECT_NAME}Format ${FFILES})
   set_target_properties(${PROJECT_NAME}Format PROPERTIES FOLDER Tools)
-  add_dependencies(${PROJECT_NAME}CommonPrecompiledHeaders ${PROJECT_NAME}Format)
+  add_dependencies(${PROJECT_NAME}Primitives ${PROJECT_NAME}Format)
 endif()
 
 if(DOT_EXE)

@@ -32,14 +32,6 @@ set_target_properties(${TARGET_NAME}
         FOLDER Modules/Common
 )
 
-if(PRECOMPILED_HEADERS_ENABLED)
-    target_precompile_headers(${TARGET_NAME} REUSE_FROM ${PROJECT_NAME}CommonPrecompiledHeaders)
-    target_link_libraries(${TARGET_NAME} 
-        PUBLIC
-            ${PROJECT_NAME}CommonPrecompiledHeaders
-          )
-endif()
-
 packageProject(
   # the name of the target to export
   NAME ${TARGET_NAME}
