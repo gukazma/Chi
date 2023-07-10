@@ -46,5 +46,5 @@ Boost::thread
 target_include_directories(
   ${TARGET_NAME} 
   PUBLIC 
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
