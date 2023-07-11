@@ -1,5 +1,6 @@
 #include "ProjectTreeWidget.h"
 #include "BaseTreeWidgetItem.h"
+#include "ProjectTreeWidgetItem.h"
 #include <QApplication>
 ProjectTreeWidget::ProjectTreeWidget(QWidget* parent)
     : QTreeWidget(parent)
@@ -11,6 +12,12 @@ ProjectTreeWidget::ProjectTreeWidget(QWidget* parent)
 }
 
 ProjectTreeWidget::~ProjectTreeWidget() {}
+
+void ProjectTreeWidget::newProject(Project* project)
+{
+    ProjectTreeWidgetItem* projectitem = new ProjectTreeWidgetItem(project);
+    this->addTopLevelItem(projectitem);
+}
 
 void ProjectTreeWidget::slot_pressed(QTreeWidgetItem* item, int value)
 {
