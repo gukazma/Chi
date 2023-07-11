@@ -7,5 +7,8 @@ public:
     explicit ProjectTreeWidget(QWidget* parent = nullptr);
     ~ProjectTreeWidget();
 
+private slots:
+    void slot_pressed(QTreeWidgetItem* item, int value);
+
 private:
 };

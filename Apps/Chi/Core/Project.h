@@ -21,7 +21,7 @@
 #pragma once
 #include <QObject>
 #include <boost/filesystem/path.hpp>
-
+#include <string>
 class Project
 {
 public:
@@ -32,6 +32,7 @@ public:
 
     void open(const boost::filesystem::path& path_);
 
+    std::string             projectName;
     boost::filesystem::path projectDir;
     boost::filesystem::path imageDir;
     boost::filesystem::path matchesDir;

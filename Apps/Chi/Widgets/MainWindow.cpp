@@ -13,13 +13,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionNewProject_triggered() 
+void MainWindow::on_actionNewProject_triggered()
 {
-    auto result =
-        QFileDialog::getSaveFileName(this, tr("New project"), "", "Chi Project(*.chi)");
-    if (!result.isEmpty()) {
-
-    }
+    auto result = QFileDialog::getSaveFileName(this, tr("New project"), "", "Chi Project(*.chi)");
+    if (!result.isEmpty()) {}
 }
 void MainWindow::on_actionSaveProject_triggered() {}
 void MainWindow::on_actionOpenProject_triggered() {}
