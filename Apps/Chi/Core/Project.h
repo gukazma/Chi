@@ -21,6 +21,7 @@
 #pragma once
 #include <QObject>
 #include <boost/filesystem/path.hpp>
+#include <boost/property_tree/ptree.hpp>
 #include <string>
 class Project
 {
@@ -28,14 +29,17 @@ public:
     Project()  = default;
     ~Project() = default;
 
-    void create(const boost::filesystem::path& path_);
+    void create(const boost::filesystem::path& path_, std::string name_);
 
     void open(const boost::filesystem::path& path_);
+    void save();
+    void update();
 
-    std::string             projectName;
-    boost::filesystem::path projectDir;
-    boost::filesystem::path imageDir;
-    boost::filesystem::path matchesDir;
+    std::string                 projectName;
+    boost::filesystem::path     projectDir;
+    boost::filesystem::path     imageDir;
+    boost::filesystem::path     matchesDir;
+    boost::property_tree::ptree m_projectPtree;
 };
 
 extern Project g_project;

@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "Widgets/NewProjectDialog.h"
 #include "ui_MainWindow.h"
 #include <QFileDialog>
 MainWindow::MainWindow(QWidget* parent)
@@ -15,8 +16,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNewProject_triggered()
 {
-    auto result = QFileDialog::getSaveFileName(this, tr("New project"), "", "Chi Project(*.chi)");
-    if (!result.isEmpty()) {}
+    NewProjectDialog newproject;
+    newproject.exec();
 }
 void MainWindow::on_actionSaveProject_triggered() {}
 void MainWindow::on_actionOpenProject_triggered() {}
